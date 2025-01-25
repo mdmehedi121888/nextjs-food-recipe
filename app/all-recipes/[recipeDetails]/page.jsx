@@ -2,6 +2,14 @@ import RecipeDetails from "@/components/recipe-details";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 async function fetchRecipeDetails(recipeId) {
   try {
@@ -21,12 +29,28 @@ export default async function DetailsRecipePage({ params }) {
   const recipe = await fetchRecipeDetails(recipeDetails);
   return (
     <div>
-      <div className="flex justify-center mt-2 mb-5">
-        <Link href={"/"}>
-          <Button className="bg-blue-500 hover:bg-blue-600 text-white">
-            <ArrowLeft /> Home
-          </Button>
-        </Link>
+      <div className="px-16 mt-16">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink>
+                <Link href="/">Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink>
+                <Link href="/all-recipes">All Recipes</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-blue-500">
+                Recipe Details
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
       <RecipeDetails recipe={recipe} />
     </div>
